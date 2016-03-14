@@ -12,9 +12,9 @@ import Foreign.C.String
 newtype ExpType = ExpType { unExpType :: CInt }
 
 data ExpCase = ExpCase { pattern :: CString
-     	       	       , regexp :: Ptr ()
-		       , exptype :: ExpType
-		       , value :: CInt }
+                       , regexp :: Ptr ()
+                       , exptype :: ExpType
+                       , value :: CInt }
 
 instance Storable ExpCase where
   alignment _ = #{alignment exp_case}

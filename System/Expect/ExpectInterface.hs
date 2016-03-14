@@ -35,9 +35,9 @@ data ExpectType = ExpExact  -- ^ Match against pattern exactly.
 data ExpectCase = ExpectCase { -- | Pattern to match against.
                                expectPattern ::String 
                                -- | Type of pattern contained in the case.
-     		  	     , expectType :: ExpectType 
+                             , expectType :: ExpectType 
                                -- | The value to return if the case is matched.
-			     , expectValue :: Int     
+                             , expectValue :: Int     
                              }
 
 -- | Proc created by spawnExpect. Contains both the
@@ -46,7 +46,7 @@ data ExpectCase = ExpectCase { -- | Pattern to match against.
 data ExpectProc = ExpectProc { -- | Gets the pointer to the expect process file handle.
                                expectFilePtr :: Ptr CFile
                                -- | Gets a Handle to the expect process.
-     		  	     , expectHandle :: Handle }
+                             , expectHandle :: Handle }
 
 -- | Child process does not echo output to stdout.
 muteExpect :: IO ()
@@ -80,7 +80,7 @@ expectCases proc cases = do
   nlist <- peekArray (length scases + 1) sarray
   mapM_ freeStorableCase nlist
   if cval < 0 then return Nothing
-     	      else return $ Just $ fromEnum cval
+              else return $ Just $ fromEnum cval
 
 -- | Expect a single case with a given type.
 expectSingle :: ExpectProc -- ^ The process to expect on.
@@ -133,7 +133,7 @@ freeStorableCase :: ExpCase
                  -> IO ()
 freeStorableCase cs = do
   if (regexp cs) == nullPtr then free (regexp cs)
-     	     	    	    else return ()
+                            else return ()
 
 expectTypeToExpType :: ExpectType -> ExpType
 expectTypeToExpType ExpRegex = expRegexp
