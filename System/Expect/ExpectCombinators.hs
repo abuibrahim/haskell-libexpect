@@ -6,7 +6,6 @@ module System.Expect.ExpectCombinators
        where
 
 import Data.Maybe
-import Control.Applicative
 import Control.Monad
 import System.Expect
 import System.IO
@@ -15,6 +14,13 @@ data ExpectM a = ExpectM { expectMProc :: (Maybe ExpectProc -> IO (a, Maybe Expe
 data ExpectOption a = ExpectOption { optionType :: ExpectType
                                    , optionPattern :: String
                                    , optionAction :: (ExpectM a) }
+
+instance Functor ExpectM where
+  fmap = liftM
+
+instance Applicative ExpectM where
+  pure = return
+  (<*>) = ap
 
 instance Monad ExpectM where
   return a = ExpectM (\x -> return (a, x))
